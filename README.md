@@ -134,11 +134,10 @@ The dashboard uses the monthly CSV files downloaded and supplied locally. The ra
 - A high predicted delay risk does not guarantee that a specific flight will be delayed.
 - Results depend on the selected date range, preprocessing choices, and sampled model-evaluation data.
 
-## Author
+## Project Developer
 
-**Your Name**  
+J.Mohana  
 B.Tech — Computer Science Engineering (AI & Machine Learning)
 
 ---
 
-If you found this project useful, feel free to star the repository.
