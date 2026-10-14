@@ -4,7 +4,6 @@ __pycache__/
 *.py[cod]
 .env
 .vscode/
-data/raw/
-data/processed/
+data/processed/cleaned_flights.csv
 models/*.joblib
 models/*.pkl

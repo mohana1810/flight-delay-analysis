@@ -1,0 +1,22 @@
+
+FLIGHT DELAY ANALYSIS AND PREDICTION
+
+Data period: 2026-01-01 to 2026-03-31
+Raw records after duplicate removal: 1,671,127
+Eligible arrival-delay records: 1,611,862
+Training months: 2026-01, 2026-02
+Test month: 2026-03
+Features used: OP_UNIQUE_CARRIER, ORIGIN, DEST, CRS_DEP_TIME, CRS_ARR_TIME, DISTANCE, Month, DayOfWeek, DAY_OF_MONTH, ScheduledDepHour, ScheduledArrHour
+Best model by F1-score: Random Forest
+
+MODEL COMPARISON
+              Model  Accuracy  Precision  Recall  F1_Score  ROC_AUC
+      Random Forest    0.5711     0.3143  0.6508    0.4239   0.6371
+Logistic Regression    0.6215     0.3252  0.5223    0.4009   0.6238
+
+Charts: reports/figures/
+Analysis tables: reports/
+Cleaned data: data/processed/cleaned_flights.csv
+Model: models/best_flight_delay_model.joblib
+
+Target: ARR_DEL15 (arrival delay of 15 minutes or more).
