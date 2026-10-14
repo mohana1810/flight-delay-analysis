@@ -1,57 +1,44 @@
-# ✈️ Flight Delay Analysis
+# Flight Delay Analysis and Prediction
 
-A Data Science project that explores U.S. flight delays, identifies patterns across months and airlines, and compares machine-learning models for predicting whether a flight will arrive **15 minutes or more late**.
+A Data Science project that analyzes U.S. flight delays, explores trends across airlines and months, and compares machine learning models to predict arrival delays of 15 minutes or more.
 
 ## Dashboard Preview
 
-![Flight Delay Analysis dashboard](assets/flight-delay-dashboard.png)
+![Flight Delay Analysis Dashboard](assets/flight-delay-dashboard.png)
 
 ## Project Overview
 
-This project uses U.S. Bureau of Transportation Statistics (BTS) / TranStats On-Time Reporting data for **January–March 2026**. It follows a typical Data Science workflow:
+This project analyzes U.S. flight data from January to March 2026 to identify delay patterns and evaluate predictive models.
 
-1. Load and combine monthly flight datasets.
-2. Clean the data and remove duplicate records.
-3. Explore delay, cancellation, and diversion patterns.
-4. Visualize monthly delay rates and compare airlines.
-5. Train and evaluate classification models.
-6. Use the selected model to estimate the delay risk for a sample flight.
+- Data cleaning and preprocessing
+- Exploratory data analysis (EDA)
+- Monthly and airline delay analysis
+- Data visualization
+- Model training and evaluation
+- Sample flight delay prediction
 
-## Key Dataset Statistics
+## Key Statistics
 
-| Measure | Result |
+| Metric | Result |
 |---|---:|
-| Flight records after duplicate removal | 1,671,127 |
-| Arrival-delay rate (eligible flights) | 21.8% |
+| Flight records analyzed | 1,671,127 |
+| Arrival-delay rate | 21.8% |
 | Cancellation rate | 3.29% |
 | Diversion rate | 0.26% |
-| Data period | January–March 2026 |
+| Data period | Jan–Mar 2026 |
 
-*These figures reflect the dataset processed for this project. The arrival-delay rate is calculated for eligible flights with an available arrival-delay outcome.*
+## Machine Learning Models
 
-## Dashboard Features
+- **Logistic Regression**
+- **Random Forest**
 
-- **Dataset summary:** Total flights, arrival-delay rate, cancellation rate, and diversion rate.
-- **Exploratory data analysis:** Monthly arrival-delay rate, delayed versus non-delayed flight split, and airline delay-rate comparison.
-- **Model comparison:** Logistic Regression and Random Forest evaluated using accuracy, precision, recall, F1-score, and ROC-AUC.
-- **Detailed evaluation:** Classification report and confusion matrix.
-- **Sample prediction:** Estimate whether a flight is likely to arrive at least 15 minutes late based on scheduled flight details.
+The models are evaluated using accuracy, precision, recall, F1-score, and ROC-AUC. In the current evaluation, **Random Forest has the higher F1-score and recall for delayed flights**, while Logistic Regression has higher overall accuracy. This illustrates why accuracy alone may not be sufficient when comparing models for an imbalanced target.
 
-## Machine-Learning Approach
 
 The target variable is `ARR_DEL15`:
 
-- `0` — arrival delay of less than 15 minutes
-- `1` — arrival delay of 15 minutes or more
-
-The models compared are:
-
-- **Logistic Regression** — a baseline classification model.
-- **Random Forest** — an ensemble of decision trees.
-
-The project uses an earlier period for training and a later period for testing, so the evaluation follows the time order of the data. A sample is used for model evaluation to keep the dashboard responsive.
-
-In the current evaluation, **Random Forest has the higher F1-score and recall for delayed flights**, while Logistic Regression has higher overall accuracy. This illustrates why accuracy alone may not be sufficient when comparing models for an imbalanced target.
+- `0` — Arrival delay under 15 minutes
+- `1` — Arrival delay of 15 minutes or more
 
 ## Tech Stack
 
@@ -68,9 +55,6 @@ In the current evaluation, **Random Forest has the higher F1-score and recall fo
 flight-delay-analysis/
 ├── data/
 │   ├── raw/
-│   │   ├── janflights/
-│   │   ├── febflights/
-│   │   └── marchflights/
 │   └── processed/
 ├── models/
 ├── reports/
@@ -83,61 +67,47 @@ flight-delay-analysis/
 └── README.md
 ```
 
-Your exact folders may differ slightly depending on which generated reports and model files are present in your local project.
+## Getting Started
 
-## Run the Dashboard Locally
-
-### 1. Clone the repository
+**1. Clone the repository**
 
 ```bash
-git clone <YOUR-GITHUB-REPOSITORY-URL>
+git clone https://github.com/mohana1810/flight-delay-analysis.git
 cd flight-delay-analysis
 ```
 
-Replace `<YOUR-GITHUB-REPOSITORY-URL>` with your repository URL.
-
-### 2. Create and activate a virtual environment
-
-**Windows PowerShell:**
+**2. Create and activate a virtual environment**
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
-### 3. Install dependencies
+**3. Install dependencies**
 
 ```powershell
 python -m pip install -r requirements.txt
 ```
 
-### 4. Start Streamlit
+**4. Run the dashboard**
 
 ```powershell
 python -m streamlit run src/main.py
 ```
 
-Open the local URL printed in the terminal, usually `http://localhost:8501`.
+Open the local URL displayed in your terminal, usually `http://localhost:8501`.
 
 ## Data Source
 
-U.S. Bureau of Transportation Statistics (BTS), TranStats — On-Time Reporting.
+U.S. Bureau of Transportation Statistics (BTS) — Airline On-Time Performance Data.
 
-https://www.transtats.bts.gov/
+[Official BTS TranStats Data Index](https://www.transtats.bts.gov/DataIndex.asp)
 
-The dashboard uses the monthly CSV files downloaded and supplied locally. The raw dataset is not included in this README package.
-
-## Important Notes
-
-- This is an educational Data Science project, not a live airline, airport, or weather forecasting service.
-- Predictions are estimates based on historical patterns and the available scheduled-flight features.
-- A high predicted delay risk does not guarantee that a specific flight will be delayed.
-- Results depend on the selected date range, preprocessing choices, and sampled model-evaluation data.
+The project uses monthly flight data for January–March 2026.
 
 ## Project Developer
 
-J.Mohana  
+**J. Mohana**  
 B.Tech — Computer Science Engineering (AI & Machine Learning)
 
 ---
-
