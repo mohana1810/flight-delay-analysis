@@ -21,19 +21,18 @@ This project analyzes U.S. flight data from January to March 2026 to identify de
 
 | Metric | Result |
 |---|---:|
-| Flight records analyzed | 1,671,127 |
-| Arrival-delay rate | 21.8% |
+| Flight records after duplicate removal | 1,671,127 |
+| Arrival-delay rate (eligible flights) | 21.8% |
 | Cancellation rate | 3.29% |
 | Diversion rate | 0.26% |
-| Data period | Jan–Mar 2026 |
+| Data period | January–March 2026 |
 
 ## Machine Learning Models
 
 - **Logistic Regression**
 - **Random Forest**
 
-The models are evaluated using accuracy, precision, recall, F1-score, and ROC-AUC. In the current evaluation, **Random Forest has the higher F1-score and recall for delayed flights**, while Logistic Regression has higher overall accuracy. This illustrates why accuracy alone may not be sufficient when comparing models for an imbalanced target.
-
+The models are evaluated using accuracy, precision, recall, F1-score, and ROC-AUC. In the current evaluation, **Random Forest achieved a higher F1-score and recall for delayed flights**, while Logistic Regression achieved higher overall accuracy.
 
 The target variable is `ARR_DEL15`:
 
@@ -55,6 +54,9 @@ The target variable is `ARR_DEL15`:
 flight-delay-analysis/
 ├── data/
 │   ├── raw/
+│   │   ├── janflights/
+│   │   ├── febflights/
+│   │   └── marchflights/
 │   └── processed/
 ├── models/
 ├── reports/
@@ -103,7 +105,7 @@ U.S. Bureau of Transportation Statistics (BTS) — Airline On-Time Performance D
 
 [Official BTS TranStats Data Index](https://www.transtats.bts.gov/DataIndex.asp)
 
-The project uses monthly flight data for January–March 2026.
+Dataset period: January–March 2026.
 
 ## Project Developer
 
