@@ -326,7 +326,7 @@
 #                      hover_data={"Flights": ":,"})
 #         fig.update_traces(texttemplate="%{text:.1f}%", textposition="outside")
 #         fig.update_coloraxes(showscale=False)
-#         st.plotly_chart(chart_theme(fig, 380), use_container_width=True)
+#         st.plotly_chart(chart_theme(fig, 380), width="stretch")
 #     with right:
 #         st.markdown("### Arrival status split")
 #         status = pd.DataFrame({
@@ -337,7 +337,7 @@
 #                      color="Arrival status",
 #                      color_discrete_map={"Not delayed 15+ min": "#2dd4bf", "Delayed 15+ min": "#fb7185"})
 #         fig.update_traces(textposition="inside", textinfo="percent")
-#         st.plotly_chart(chart_theme(fig, 380), use_container_width=True)
+#         st.plotly_chart(chart_theme(fig, 380), width="stretch")
 
 #     st.markdown("### Model performance snapshot")
 #     display_results = results_df.copy()
@@ -347,7 +347,7 @@
 #         "F1_Score": "F1 score", "ROC_AUC": "ROC-AUC",
 #         "Accuracy": "Accuracy %", "Precision": "Precision %", "Recall": "Recall %"
 #     })
-#     st.dataframe(display_results, use_container_width=True, hide_index=True)
+#     st.dataframe(display_results, width="stretch", hide_index=True)
 #     st.caption(f"Best model by delayed-class F1-score: {best_name}. Exact duplicate rows removed: {duplicates_removed:,}.")
 
 # elif page == "Delay Patterns":
@@ -364,13 +364,13 @@
 #                       hover_data={"Flights": ":,"})
 #         fig.update_traces(line=dict(color="#2dd4bf", width=3), marker=dict(size=7))
 #         fig.update_xaxes(dtick=2, title="Scheduled departure hour")
-#         st.plotly_chart(chart_theme(fig, 380), use_container_width=True)
+#         st.plotly_chart(chart_theme(fig, 380), width="stretch")
 #     with c2:
 #         st.markdown("### Arrival delay minutes")
 #         delay_minutes = flights["ARR_DELAY_NEW"].dropna().clip(upper=180)
 #         fig = px.histogram(x=delay_minutes, nbins=45, labels={"x": "Arrival delay (minutes)", "count": "Flights"})
 #         fig.update_traces(marker_color="#fb7185", opacity=.88)
-#         st.plotly_chart(chart_theme(fig, 380), use_container_width=True)
+#         st.plotly_chart(chart_theme(fig, 380), width="stretch")
 
 #     st.markdown("### Day-of-week patterns")
 #     day_names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
@@ -382,7 +382,7 @@
 #     fig = px.bar(weekday, x="Day", y="Delay rate (%)", color="Delay rate (%)",
 #                  color_continuous_scale=["#2dd4bf", "#fbbf24"], hover_data={"Flights": ":,"})
 #     fig.update_coloraxes(showscale=False)
-#     st.plotly_chart(chart_theme(fig, 330), use_container_width=True)
+#     st.plotly_chart(chart_theme(fig, 330), width="stretch")
 #     st.caption("Cancelled and diverted flights are excluded from arrival-delay classification because a normal arrival-delay label may not be available.")
 
 # elif page == "Airlines & Routes":
@@ -399,10 +399,10 @@
 #                      color="Delay rate (%)", color_continuous_scale=["#2dd4bf", "#fb7185"],
 #                      hover_data={"Flights": ":,"})
 #         fig.update_coloraxes(showscale=False)
-#         st.plotly_chart(chart_theme(fig, max(400, len(airline) * 22)), use_container_width=True)
+#         st.plotly_chart(chart_theme(fig, max(400, len(airline) * 22)), width="stretch")
 #         st.dataframe(airline.sort_values("Delay rate (%)", ascending=False).rename(
 #             columns={"OP_UNIQUE_CARRIER": "Airline code"}
-#         )[["Airline code", "Flights", "Delay rate (%)"]].round(2), use_container_width=True, hide_index=True)
+#         )[["Airline code", "Flights", "Delay rate (%)"]].round(2), width="stretch", hide_index=True)
 #     with tab2:
 #         airport = flights.groupby("ORIGIN").agg(
 #             Flights=("ARR_DEL15", "size"), DelayRate=("ARR_DEL15", "mean")
@@ -415,7 +415,7 @@
 #                      orientation="h", color="Delay rate (%)",
 #                      color_continuous_scale=["#2dd4bf", "#fb7185"], hover_data={"Flights": ":,"})
 #         fig.update_coloraxes(showscale=False)
-#         st.plotly_chart(chart_theme(fig, 440), use_container_width=True)
+#         st.plotly_chart(chart_theme(fig, 440), width="stretch")
 #         st.caption("Airports with fewer than 100 eligible flights are excluded from this comparison to reduce small-sample noise.")
 #     with tab3:
 #         route = flights.groupby(["ORIGIN", "DEST"]).agg(
@@ -427,13 +427,13 @@
 #         route = route.sort_values("Delay rate (%)", ascending=False)
 #         st.markdown("#### Routes with the highest observed delay rates")
 #         st.dataframe(route.head(20)[["Route", "Flights", "Delay rate (%)"]].round(2),
-#                      use_container_width=True, hide_index=True)
+#                      width="stretch", hide_index=True)
 #         fig = px.scatter(route, x="Flights", y="Delay rate (%)", hover_name="Route",
 #                          size="Flights", color="Delay rate (%)",
 #                          color_continuous_scale=["#2dd4bf", "#fb7185"],
 #                          labels={"Flights": "Eligible flights", "Delay rate (%)": "Arrival delay rate (%)"})
 #         fig.update_coloraxes(showscale=False)
-#         st.plotly_chart(chart_theme(fig, 400), use_container_width=True)
+#         st.plotly_chart(chart_theme(fig, 400), width="stretch")
 #         st.caption("Your CSV has airport codes but no latitude/longitude. This dashboard therefore visualizes airport and route performance with charts; a true geographic map would require an airport-coordinate lookup table.")
 
 # elif page == "Model Lab":
@@ -459,7 +459,7 @@
 #                  color_discrete_map={"Logistic Regression": "#2dd4bf", "Random Forest": "#fb7185"},
 #                  text="Score (%)")
 #     fig.update_traces(texttemplate="%{text:.1f}", textposition="outside")
-#     st.plotly_chart(chart_theme(fig, 390), use_container_width=True)
+#     st.plotly_chart(chart_theme(fig, 390), width="stretch")
 
 #     st.markdown("### Classification reports")
 #     selected_model = st.selectbox("Choose a model report", list(model_bundle["models"].keys()))
@@ -469,7 +469,7 @@
 #         "0": "Not delayed", "1": "Delayed 15+ minutes",
 #         "accuracy": "Accuracy", "macro avg": "Macro average", "weighted avg": "Weighted average"
 #     })
-#     st.dataframe(report_table.round(3), use_container_width=True)
+#     st.dataframe(report_table.round(3), width="stretch")
 
 #     # Requested classification_report calls, with explicit named prediction variables.
 #     y_test = model_bundle["y_test"]
@@ -505,7 +505,7 @@
 #                     y=["Actual not delayed", "Actual delayed"],
 #                     color_continuous_scale=[[0, "#102239"], [0.5, "#1c8f89"], [1, "#fb7185"]])
 #     fig.update_layout(**PLOT_LAYOUT, height=390, coloraxis_showscale=False)
-#     st.plotly_chart(fig, use_container_width=True)
+#     st.plotly_chart(fig, width="stretch")
 
 #     st.markdown("### Full metric table")
 #     pretty = results_df.copy()
@@ -514,7 +514,7 @@
 #     st.dataframe(pretty.rename(columns={
 #         "F1_Score": "F1 score (%)", "ROC_AUC": "ROC-AUC (%)",
 #         "Accuracy": "Accuracy (%)", "Precision": "Precision (%)", "Recall": "Recall (%)"
-#     }), use_container_width=True, hide_index=True)
+#     }), width="stretch", hide_index=True)
 
 #     st.info("Accuracy alone can be misleading when delayed flights are the minority class. Compare delayed-class precision, recall and F1-score as well.")
 
@@ -544,7 +544,7 @@
 #             month = st.selectbox("Month", [1, 2, 3], format_func=lambda m: {1:"January", 2:"February", 3:"March"}[m])
 #             day = st.slider("Day of month", 1, 31, 15)
 #             weekday = st.selectbox("Day of week", list(range(7)), format_func=lambda d: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"][d])
-#         submitted = st.form_submit_button("Estimate delay risk", use_container_width=True)
+#         submitted = st.form_submit_button("Estimate delay risk", width="stretch")
 
 #     if submitted:
 #         input_row = pd.DataFrame([{
@@ -584,7 +584,7 @@
 #                        "threshold": {"line": {"color": "#fbbf24", "width": 4}, "value": 50}}
 #             ))
 #             gauge.update_layout(paper_bgcolor="rgba(0,0,0,0)", font={"color":"#dce8f5"}, height=280, margin=dict(l=25,r=25,t=30,b=10))
-#             st.plotly_chart(gauge, use_container_width=True)
+#             st.plotly_chart(gauge, width="stretch")
 
 # st.markdown("---")
 # st.markdown(
@@ -978,7 +978,7 @@ with left:
     fig.update_traces(texttemplate="%{text:.1f}%", textposition="outside", cliponaxis=False)
     fig.update_layout(xaxis_title="Month", yaxis_title="Delay rate (%)", showlegend=False,
                       xaxis={"type": "category", "tickangle": 0})
-    st.plotly_chart(chart_theme(fig, 350), use_container_width=True)
+    st.plotly_chart(chart_theme(fig, 350), width="stretch")
 with right:
     status = pd.DataFrame({
         "Arrival status": ["Not delayed 15+ min", "Delayed 15+ min"],
@@ -989,7 +989,7 @@ with right:
                  color="Arrival status",
                  color_discrete_map={"Not delayed 15+ min": "#2dd4bf", "Delayed 15+ min": "#fb7185"})
     fig.update_traces(textposition="inside", textinfo="percent")
-    st.plotly_chart(chart_theme(fig, 350), use_container_width=True)
+    st.plotly_chart(chart_theme(fig, 350), width="stretch")
 
 carrier = flights.groupby("OP_UNIQUE_CARRIER").agg(
     Flights=("ARR_DEL15", "size"), DelayRate=("ARR_DEL15", "mean")
@@ -1003,7 +1003,7 @@ fig = px.bar(carrier.sort_values("Delay rate (%)"), x="Delay rate (%)", y="OP_UN
              title="Airlines with the highest observed delay rates (minimum 500 flights)",
              hover_data={"Flights": ":,"})
 fig.update_coloraxes(showscale=False)
-st.plotly_chart(chart_theme(fig, 420), use_container_width=True)
+st.plotly_chart(chart_theme(fig, 420), width="stretch")
 
 st.markdown("### 3. Machine-learning model comparison")
 st.caption(
@@ -1019,7 +1019,7 @@ pretty = pretty.rename(columns={
     "Accuracy": "Accuracy (%)", "Precision": "Precision (%)", "Recall": "Recall (%)",
     "F1_Score": "F1-score (%)", "ROC_AUC": "ROC-AUC (%)"
 })
-st.dataframe(pretty, use_container_width=True, hide_index=True)
+st.dataframe(pretty, width="stretch", hide_index=True)
 
 chart_df = results_df.melt(id_vars="Model", value_vars=metric_cols,
                            var_name="Metric", value_name="Score")
@@ -1028,7 +1028,7 @@ fig = px.bar(chart_df, x="Metric", y="Score (%)", color="Model", barmode="group"
              color_discrete_map={"Logistic Regression": "#2dd4bf", "Random Forest": "#fb7185"},
              title="Performance metrics (%)", text="Score (%)")
 fig.update_traces(texttemplate="%{text:.1f}", textposition="outside")
-st.plotly_chart(chart_theme(fig, 380), use_container_width=True)
+st.plotly_chart(chart_theme(fig, 380), width="stretch")
 
 st.info(
     f"**Best model by delayed-flight F1-score: {best_name}.** "
@@ -1053,7 +1053,7 @@ with st.expander("Classification report and confusion matrix", expanded=True):
                     color_continuous_scale=[[0, "#102239"], [0.5, "#1c8f89"], [1, "#fb7185"]],
                     title="Confusion matrix")
     fig.update_layout(**PLOT_LAYOUT, height=350, coloraxis_showscale=False)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 st.markdown("### 4. Try a sample flight prediction")
 st.caption("This is an estimate based on scheduled flight details and historical patterns, not a live airline or weather forecast.")
@@ -1077,7 +1077,7 @@ distance_default = float(flights.loc[
 ].median()) if ((flights["ORIGIN"] == pred_origin) & (flights["DEST"] == pred_dest)).any() else 500.0
 distance = st.number_input("Distance (miles)", min_value=1.0, max_value=7000.0,
                            value=max(1.0, min(7000.0, distance_default)), step=25.0)
-if st.button("Estimate delay risk", use_container_width=True):
+if st.button("Estimate delay risk", width="stretch"):
     input_row = pd.DataFrame([{
         "OP_UNIQUE_CARRIER": pred_carrier, "ORIGIN": pred_origin, "DEST": pred_dest,
         "CRS_DEP_TIME": pred_dep * 100, "CRS_ARR_TIME": pred_arr * 100,
